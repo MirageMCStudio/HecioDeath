@@ -8,7 +8,7 @@ import me.anhecio.hecioplugin.death.common.compat.type.PlayerTerritoryType.*
 import me.anhecio.hecioplugin.death.common.util.parseToTerritoryType
 import me.anhecio.hecioplugin.death.compat.territory.dominion.DominionCompat
 import me.anhecio.hecioplugin.death.compat.territory.residence.ResidenceCompat
-import me.anhecio.hecioplugin.death.compat.territory.worldground.WorldGroundCompat
+import me.anhecio.hecioplugin.death.compat.territory.worldguard.WorldGuardCompat
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import taboolib.common.LifeCycle
@@ -38,7 +38,7 @@ class DefaultHecioDeathPlayerTerritoryController : HecioDeathPlayerTerritoryCont
             val type = territory.parseToTerritoryType()
             if (!type.isEnabled()) error("领地插件未挂钩: $type")
             return when (type) {
-                WorldGround -> WorldGroundCompat.getLocationTerritory(player)
+                WorldGuard -> WorldGuardCompat.getLocationTerritory(player)
                 Residence -> ResidenceCompat.getLocationTerritory(player)
                 Dominion -> DominionCompat.getLocationTerritory(player)
             }

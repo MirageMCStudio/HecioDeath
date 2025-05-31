@@ -8,7 +8,7 @@ package me.anhecio.hecioplugin.death.common.compat.type
  * @since 2025/5/31 20:13
  */
 enum class PlayerTerritoryType {
-    WorldGround,
+    WorldGuard,
     Residence,
     Dominion,
 }

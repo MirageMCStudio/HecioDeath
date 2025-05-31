@@ -7,7 +7,15 @@ taboolib {
         name(rootProject.name)
         desc("Provide a flexible and powerful death punishment system for the Minecraft Bukkit Server.")
         contributors {
-            name("HecioDeath")
+            name("Anhecio")
+        }
+        dependencies {
+            name("DragonCore").optional(true)
+            name("GermPlugin").optional(true)
+            name("ArcartX").optional(true)
+            name("Residence").optional(true)
+            name("WorldGuard").optional(true)
+            name("Dominion").optional(true)
         }
     }
 }

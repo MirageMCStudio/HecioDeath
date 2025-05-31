@@ -24,7 +24,8 @@ object DominionCompat : PlayerTerritoryCompat {
 
     override fun getLocationTerritory(player: Player): CompatTerritory? {
         val territory = dominionAPI.getPlayerCurrentDominion(player)?.id
-        if (territory == null) return null
-        return DefaultHecioDeathPlayerTerritoryController().toCompatTerritory(territory.toString(), PlayerTerritoryType.Dominion)
+        return territory?.let {
+            DefaultHecioDeathPlayerTerritoryController().toCompatTerritory(territory.toString(), PlayerTerritoryType.Dominion)
+        }
     }
 }

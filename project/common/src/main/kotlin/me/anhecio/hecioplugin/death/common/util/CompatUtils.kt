@@ -23,7 +23,7 @@ fun String.parseToSlotType(): PlayerSlotType {
 fun String.parseToTerritoryType(): PlayerTerritoryType {
     return when (this.lowercase()) {
         "dominion" -> PlayerTerritoryType.Dominion
-        "worldground" -> PlayerTerritoryType.WorldGround
+        "worldguard" -> PlayerTerritoryType.WorldGuard
         "Residence" -> PlayerTerritoryType.Residence
         else -> error("未知的领地类型: $this")
     }

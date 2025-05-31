@@ -23,8 +23,9 @@ object ResidenceCompat : PlayerTerritoryCompat {
 
     override fun getLocationTerritory(player: Player): CompatTerritory? {
         val res = manager.getByLoc(player.location)
-        if (res == null) return null
-        return DefaultHecioDeathPlayerTerritoryController().toCompatTerritory(res.name, PlayerTerritoryType.Residence)
+        return res?.let {
+            DefaultHecioDeathPlayerTerritoryController().toCompatTerritory(res.name, PlayerTerritoryType.Residence)
+        }
     }
 
 }
