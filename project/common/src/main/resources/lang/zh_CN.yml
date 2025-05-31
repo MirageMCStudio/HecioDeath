@@ -1,0 +1,29 @@
+command-helper:
+  - '&7'
+  - '  &l&3Hecio&bDeath &7v{pluginVersion}'
+  - '&7'
+  - '  &7命令: &f/{command} &8\[...\]'
+  - '  &7参数:'
+  - '{subCommands}'
+  - '&7'
+command-sub:
+  - '    &8- [&f{name}](h=/{command} {name} {usage}&8- &7{description};suggest=/{command} {name})'
+  - '      &7{description}'
+command-argument-missing:
+  - '&l&3Hecio&bDeath &7> &7指令 &f{name} &7参数不足'
+  - '&l&3Hecio&bDeath &7> &7正确用法:'
+  - '&l&3Hecio&bDeath &7> &7/{command} {name} {usage}&8- &7{description}'
+command-argument-wrong:
+  - '&l&3Hecio&bDeath &7> &7指令 &f{name} &7参数有误'
+  - '&l&3Hecio&bDeath &7> &7正确用法:'
+  - '&l&3Hecio&bDeath &7> &7/{command} {name} {usage}&8- &7{description}'
+command-argument-unknown:
+  - '&l&3Hecio&bDeath &7> &7指令 &f{name} &7不存在'
+  - '&l&3Hecio&bDeath &7> &7你可能想要:'
+  - '&l&3Hecio&bDeath &7> &7/{command} {similar} {usage}&8- &7{description}'
+command-incorrect-sender: '&l&3Hecio&bDeath &7> &7指令 &f{name} &7只能由 &f玩家 &7执行'
+
+command-no-desc: '当前指令不存在描述'
+
+command-subCommands-reload-description: '重载插件配置'
+command-subCommands-reload-usage: ''

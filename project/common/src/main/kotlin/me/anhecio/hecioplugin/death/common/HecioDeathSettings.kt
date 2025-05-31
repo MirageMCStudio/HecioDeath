@@ -25,6 +25,12 @@ object HecioDeathSettings {
     var debug = false
 
     /**
+     * 插件兼容的领地插件
+     */
+    @ConfigNode("options.territory")
+    var territory = "residence"
+
+    /**
      * 启用的适配槽位类型
      */
     @ConfigNode("options.compat-slot")

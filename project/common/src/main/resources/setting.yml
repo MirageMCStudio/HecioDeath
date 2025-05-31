@@ -1,4 +1,5 @@
 options:
   debug: false
+  territory: ""
   compat-slot:
     - vanilla
