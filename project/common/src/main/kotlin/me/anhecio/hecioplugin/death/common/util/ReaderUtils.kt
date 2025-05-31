@@ -65,3 +65,15 @@ data class FolderReader(val file: File) {
         }
     }
 }
+
+/**
+ * 根据文件相对路径获取文件的 Id
+ * 例如： ./Vulpecula/script/example/default.yml -> example.default
+ */
+fun buildFileId(file: File, directory: String): String {
+    val directoryFile = File(getDataFolder(), directory)
+    val rootPath = directoryFile.toPath().normalize()
+    val targetPath = file.toPath().normalize()
+    val relativePath = rootPath.relativize(targetPath)
+    return relativePath.toString().replace(File.separatorChar, '.').substringBeforeLast('.')
+}

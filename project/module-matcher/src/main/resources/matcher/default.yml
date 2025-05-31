@@ -1,0 +1,19 @@
+permission-matcher-example:
+  type: "permission"
+  requires:
+    has: ["heciodeath.perm.death"]
+
+world-matcher-example:
+  type: "world"
+  requires:
+    out: ["joker_world"]
+
+item-matcher-example:
+  type: "item"
+  requires:
+    slot-has: ["vanilla::0::material:c(STONE)"]
+
+name-matcher-example:
+  type: "name"
+  requires:
+    not-in: ["Joker"]

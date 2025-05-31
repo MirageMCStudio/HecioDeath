@@ -8,7 +8,7 @@ import taboolib.module.configuration.Configuration
  * HecioDeath
  * me.anhecio.hecioplugin.death.common
  *
- * @author Lumira311
+ * @author Anhecio
  * @since 2025/5/31 11:25
  */
 @ConfigNode(bind = "setting.yml")

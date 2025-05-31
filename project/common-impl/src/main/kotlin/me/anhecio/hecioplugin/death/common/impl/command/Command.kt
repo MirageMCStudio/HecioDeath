@@ -10,7 +10,7 @@ import taboolib.common.platform.command.subCommand
  * HecioDeath
  * me.anhecio.hecioplugin.death.common.impl.command
  *
- * @author Lumira311
+ * @author Anhecio
  * @since 2025/5/31 15:23
  */
 @CommandHeader(

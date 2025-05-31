@@ -1,18 +1,22 @@
 package me.anhecio.hecioplugin.death.module.bukkit
 
+import me.anhecio.hecioplugin.death.common.HecioDeath
 import me.anhecio.hecioplugin.death.common.impl.DefaultHecioDeathBooster
+import me.anhecio.hecioplugin.death.common.util.debug
+import org.bukkit.Bukkit
 import taboolib.common.LifeCycle
 import taboolib.common.platform.Plugin
 import taboolib.common.platform.function.console
 import taboolib.common.platform.function.disablePlugin
 import taboolib.common.platform.function.registerLifeCycleTask
 import taboolib.module.lang.sendLang
+import taboolib.module.lang.sendMessage
 
 /**
  * HecioDeath
  * me.anhecio.hecioplugin.death.module.bukkit
  *
- * @author Lumira311
+ * @author Anhecio
  * @since 2025/5/31 11:04
  */
 object HecioDeathPlugin : Plugin() {
@@ -25,5 +29,23 @@ object HecioDeathPlugin : Plugin() {
                 disablePlugin()
             }
         }
+    }
+
+    override fun onLoad() {
+        console().sendMessage("")
+        console().sendLang("Plugin-Loaded", Bukkit.getServer().version)
+        console().sendMessage("")
+    }
+
+    override fun onEnable() {
+        val matcherCache = HecioDeath.api().getMatcher().getConfigManager().cache
+        val penaltyCache = HecioDeath.api().getPenalty().getConfigManager().cache
+        console().sendLang("Plugin-Loaded", matcherCache.size, penaltyCache.size)
+        console().sendLang("Plugin-Enabled")
+        debug("Debug 模式已开启.")
+    }
+
+    override fun onDisable() {
+        console().sendLang("Plugin-Disabled")
     }
 }

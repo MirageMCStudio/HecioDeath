@@ -4,7 +4,7 @@ package me.anhecio.hecioplugin.death.common.util
  * HecioDeath
  * me.anhecio.hecioplugin.death.common.util
  *
- * @author Lumira311
+ * @author Anhecio
  * @since 2025/5/31 15:20
  */
 fun timing(): Long {

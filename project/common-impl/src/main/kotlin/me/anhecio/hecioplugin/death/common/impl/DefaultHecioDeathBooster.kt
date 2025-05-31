@@ -7,7 +7,7 @@ import taboolib.common.util.unsafeLazy
  * HecioDeath
  * me.anhecio.hecioplugin.death.common.impl
  *
- * @author Lumira311
+ * @author Anhecio
  * @since 2025/5/31 11:23
  */
 object DefaultHecioDeathBooster {
