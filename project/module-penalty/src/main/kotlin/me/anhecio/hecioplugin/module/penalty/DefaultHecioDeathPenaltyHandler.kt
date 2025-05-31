@@ -18,8 +18,8 @@ class DefaultHecioDeathPenaltyHandler : HecioDeathPenaltyHandler {
     override fun getConfigManager(): HecioDeathConfigService = config
 
     override fun getBindMatchers(penaltyId: String): ConfigurationSection {
-        val config = config.cache[penaltyId] ?: error("未知的惩罚器Id: $penaltyId")
-        if (!config.contains(BIND_NODE_PATH)) error("惩罚器 $penaltyId 中未找到绑定匹配器配置节点: $BIND_NODE_PATH")
+        val config = config.cache[penaltyId] ?: error("未知的惩罚器Id: '$penaltyId'")
+        if (!config.contains(BIND_NODE_PATH)) error("惩罚器 '$penaltyId' 中未找到绑定匹配器配置节点: '$BIND_NODE_PATH'")
         return config.getConfigurationSection(BIND_NODE_PATH)!!
     }
 

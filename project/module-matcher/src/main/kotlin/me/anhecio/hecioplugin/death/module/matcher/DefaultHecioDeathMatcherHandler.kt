@@ -24,7 +24,7 @@ class DefaultHecioDeathMatcherHandler : HecioDeathMatcherHandler {
         id: String,
         event: PlayerDeathEvent,
     ): List<Boolean> {
-        val section = config.cache[id] ?: error("No matcher group found for id: '$id'")
+        val section = config.cache[id] ?: error("")
         return section.getKeys(false).map { match ->
             evaluateNode(id, match, event)
         }
@@ -35,13 +35,13 @@ class DefaultHecioDeathMatcherHandler : HecioDeathMatcherHandler {
         match: String,
         event: PlayerDeathEvent,
     ): Boolean {
-        val section = config.cache[id] ?: error("No matcher group found for id: '$id'")
+        val section = config.cache[id] ?: error("未知的匹配器Id: $id")
         val subSection = section.getConfigurationSection(match)
-            ?: error("Matcher '$match' not found in group '$id'")
+            ?: error("无法在匹配器 '$id' 中找到配置节点: $match")
         val type = subSection.getString("type")
-            ?: error("Missing 'type' in matcher '$id::$match'")
+            ?: error("'$id::$match' 中未设置匹配类型.")
         val handler = MatcherRegistry.get(type)
-            ?: error("No matcher handler registered for type: '$type'")
+            ?: error("'$id::$match' 使用了未知的匹配类型: $type")
         return handler.match(event, subSection)
     }
 
@@ -70,7 +70,7 @@ class DefaultHecioDeathMatcherHandler : HecioDeathMatcherHandler {
     private fun evaluate(event: PlayerDeathEvent, entries: List<String>, predicate: (Boolean) -> Boolean): Boolean {
         return predicate(entries.any { entry ->
             val parts = entry.split("::")
-            require(parts.size == 2) { "Invalid matcher reference format: '$entry'. Expected 'id::match'" }
+            require(parts.size == 2) { "匹配器路径 '$entry' 不合法." }
 
             val (id, match) = parts
 
