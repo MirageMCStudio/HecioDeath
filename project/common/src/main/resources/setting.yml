@@ -3,3 +3,4 @@ options:
   territory: ""
   compat-slot:
     - vanilla
+  compat-territory: []

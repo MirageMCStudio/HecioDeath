@@ -28,4 +28,14 @@ interface HecioDeathAPI {
      */
     fun getPlayerSlotController(): HecioDeathPlayerSlotController
 
+    /**
+     * 获取用于控制玩家领地的接口
+     */
+    fun getPlayerTerritoryController(): HecioDeathPlayerTerritoryController
+
+    /**
+     * 获取用于控制 JavaScript 的脚本接口
+     */
+    fun getJavaScriptHandler(): HecioDeathJavaScriptHandler
+
 }

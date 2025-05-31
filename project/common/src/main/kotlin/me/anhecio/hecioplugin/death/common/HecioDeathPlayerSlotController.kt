@@ -20,9 +20,19 @@ interface HecioDeathPlayerSlotController {
     val slots: MutableMap<CompatSlot, ItemStack>
 
     /**
+     * 启用的槽位类型
+     */
+    val types: MutableSet<PlayerSlotType>
+
+    /**
      * 解析槽位Id为CompatSlot
      */
-    fun toCompatSlotId(slotId: String, slotType: PlayerSlotType): CompatSlot
+    fun toCompatSlot(slotId: String, slotType: PlayerSlotType): CompatSlot
+
+    /**
+     * 判断指定槽位是否启用
+     */
+    fun PlayerSlotType.isEnabled(): Boolean
 
 
     /**

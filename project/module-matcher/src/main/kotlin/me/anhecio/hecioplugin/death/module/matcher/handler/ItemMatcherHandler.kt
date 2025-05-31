@@ -4,9 +4,12 @@ import me.anhecio.hecioplugin.death.common.HecioDeath
 import me.anhecio.hecioplugin.death.common.compat.type.PlayerSlotType
 import me.anhecio.hecioplugin.death.common.util.parseToSlotType
 import me.anhecio.hecioplugin.death.module.matcher.api.MatcherHandler
+import me.anhecio.hecioplugin.death.module.matcher.api.MatcherRegistry
 import org.bukkit.entity.Player
 import org.bukkit.event.entity.PlayerDeathEvent
 import sun.audio.AudioPlayer.player
+import taboolib.common.LifeCycle
+import taboolib.common.platform.Awake
 import taboolib.library.configuration.ConfigurationSection
 
 /**
@@ -53,7 +56,7 @@ object ItemMatcherHandler : MatcherHandler {
         requires.getStringList("slot-has").takeIf { it.isNotEmpty() }?.let { matchList ->
             if (matchList.any {  matchConfig ->
                     val (type, slot, match) = matchConfig.split("::")
-                    val item = controller.getPlayerSlot(player, controller.toCompatSlotId(slot, type.parseToSlotType()))
+                    val item = controller.getPlayerSlot(player, controller.toCompatSlot(slot, type.parseToSlotType()))
                     item?.let { !matcher.match(it, match) } == true
                 }) return false
         }
@@ -61,7 +64,7 @@ object ItemMatcherHandler : MatcherHandler {
         requires.getStringList("slot-has-only").takeIf { it.isNotEmpty() }?.let { matchList ->
             if (matchList.none { matchConfig ->
                     val (type, slot, match) = matchConfig.split("::")
-                    val  item = controller.getPlayerSlot(player, controller.toCompatSlotId(slot, type.parseToSlotType()))
+                    val  item = controller.getPlayerSlot(player, controller.toCompatSlot(slot, type.parseToSlotType()))
                     item?.let { matcher.match(it, match) } == true
                 }) return false
         }
@@ -69,7 +72,7 @@ object ItemMatcherHandler : MatcherHandler {
         requires.getStringList("slot-lack").takeIf { it.isNotEmpty() }?.let { matchList ->
             if (matchList.any {  matchConfig ->
                     val (type, slot, match) = matchConfig.split("::")
-                    val item = controller.getPlayerSlot(player, controller.toCompatSlotId(slot, type.parseToSlotType()))
+                    val item = controller.getPlayerSlot(player, controller.toCompatSlot(slot, type.parseToSlotType()))
                     item?.let { matcher.match(it, match) } == true
                 }) return false
         }
@@ -77,11 +80,16 @@ object ItemMatcherHandler : MatcherHandler {
         requires.getStringList("slot-lack-only").takeIf { it.isNotEmpty() }?.let { matchList ->
             if (matchList.none { matchConfig ->
                     val (type, slot, match) = matchConfig.split("::")
-                    val  item = controller.getPlayerSlot(player, controller.toCompatSlotId(slot, type.parseToSlotType()))
+                    val  item = controller.getPlayerSlot(player, controller.toCompatSlot(slot, type.parseToSlotType()))
                     item?.let { !matcher.match(it, match) } == true
                 }) return false
         }
 
         return true
+    }
+
+    @Awake(LifeCycle.CONST)
+    fun register() {
+        MatcherRegistry.register(this)
     }
 }

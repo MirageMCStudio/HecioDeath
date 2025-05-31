@@ -1,6 +1,7 @@
 package me.anhecio.hecioplugin.death.common.util
 
 import me.anhecio.hecioplugin.death.common.compat.type.PlayerSlotType
+import me.anhecio.hecioplugin.death.common.compat.type.PlayerTerritoryType
 
 /**
  * HecioDeath
@@ -16,5 +17,14 @@ fun String.parseToSlotType(): PlayerSlotType {
         "germplugin" -> PlayerSlotType.GermPlugin
         "vanilla" -> PlayerSlotType.Vanilla
         else -> error("未知的槽位类型: $this")
+    }
+}
+
+fun String.parseToTerritoryType(): PlayerTerritoryType {
+    return when (this.lowercase()) {
+        "dominion" -> PlayerTerritoryType.Dominion
+        "worldground" -> PlayerTerritoryType.WorldGround
+        "Residence" -> PlayerTerritoryType.Residence
+        else -> error("未知的领地类型: $this")
     }
 }

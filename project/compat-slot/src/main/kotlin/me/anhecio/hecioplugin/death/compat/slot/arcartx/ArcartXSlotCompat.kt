@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack
  * @author Anhecio
  * @since 2025/5/31 18:37
  */
-class ArcartXSlotCompat : PlayerSlotCompat {
+object ArcartXSlotCompat : PlayerSlotCompat {
     override fun getPlayerAllSlots(player: Player): Map<CompatSlot, ItemStack> {
         TODO("Not yet implemented")
     }

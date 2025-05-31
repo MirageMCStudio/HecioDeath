@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack
  * @author Anhecio
  * @since 2025/5/31 18:37
  */
-class DragonCoreSlotCompat : PlayerSlotCompat {
+object DragonCoreSlotCompat : PlayerSlotCompat {
     override fun getPlayerAllSlots(player: Player): Map<CompatSlot, ItemStack> {
         TODO("Not yet implemented")
     }

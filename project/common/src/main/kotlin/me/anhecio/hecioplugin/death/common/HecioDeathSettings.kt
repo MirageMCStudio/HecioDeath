@@ -27,8 +27,8 @@ object HecioDeathSettings {
     /**
      * 插件兼容的领地插件
      */
-    @ConfigNode("options.territory")
-    var territory = "residence"
+    @ConfigNode("options.compat-territory")
+    var compatTerritory = emptyList<String>()
 
     /**
      * 启用的适配槽位类型

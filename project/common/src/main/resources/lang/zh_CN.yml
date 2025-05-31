@@ -9,6 +9,7 @@ Plugin-Enabled: '&l&3Hecio&bDeath &7> &3插件加载完毕.'
 Plugin-Disabled: '&l&3Hecio&bDeath &7> &3插件卸载完毕.'
 Plugin-Reloaded: '&l&3Hecio&bDeath &7> &3插件重载完毕.'
 Plugin-Debug: '&l&3Hecio&bDeath &7> &f{0}'
+Plugin-Hooker: '&l&3Hecio&bDeath &7> &3插件挂钩&a成功 &7-> &f{0}.'
 
 
 
