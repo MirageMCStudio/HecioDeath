@@ -18,4 +18,14 @@ interface HecioDeathAPI {
      */
     fun getPenalty(): HecioDeathPenaltyHandler
 
+    /**
+     * 获取用于物品匹配的物品匹配器接口
+     */
+    fun getItemMatcher(): HecioDeathItemMatcher
+
+    /**
+     * 获取用于控制玩家槽位的接口
+     */
+    fun getPlayerSlotController(): HecioDeathPlayerSlotController
+
 }
