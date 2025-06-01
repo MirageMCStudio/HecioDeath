@@ -20,6 +20,10 @@ taboolib {
     }
 }
 
+dependencies {
+    taboo(fileTree("libs/HecioNashorn-1.15.6.jar"))
+}
+
 tasks {
     jar {
         // 构件名

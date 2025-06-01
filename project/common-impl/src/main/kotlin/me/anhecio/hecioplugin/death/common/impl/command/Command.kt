@@ -1,5 +1,6 @@
 package me.anhecio.hecioplugin.death.common.impl.command
 
+import me.anhecio.hecioplugin.death.common.HecioDeath
 import me.anhecio.hecioplugin.death.common.util.createTabooLegacyStyleCommandHelper
 import taboolib.common.platform.command.CommandBody
 import taboolib.common.platform.command.CommandHeader
@@ -27,7 +28,10 @@ object Command {
 
     @CommandBody
     val reload = subCommand {
-
+        // 重载匹配管理器
+        HecioDeath.api().getMatcher().getConfigManager().reload()
+        // 重载惩罚管理器
+        HecioDeath.api().getPenalty().getConfigManager().reload()
     }
 
 }
