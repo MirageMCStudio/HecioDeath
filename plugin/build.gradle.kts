@@ -8,6 +8,7 @@ taboolib {
         desc("Provide a flexible and powerful death punishment system for the Minecraft Bukkit Server.")
         contributors {
             name("Anhecio")
+            name("FROSTM0URNE")
         }
         dependencies {
             name("DragonCore").optional(true)
@@ -21,7 +22,7 @@ taboolib {
 }
 
 dependencies {
-    taboo(fileTree("libs/HecioNashorn-1.15.6.jar"))
+    taboo(files("libs/HecioNashorn-1.15.6.jar"))
 }
 
 tasks {
