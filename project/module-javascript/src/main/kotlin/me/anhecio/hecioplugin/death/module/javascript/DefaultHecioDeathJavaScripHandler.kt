@@ -1,5 +1,6 @@
 package me.anhecio.hecioplugin.death.module.javascript
 
+import me.anhecio.hecioplugin.death.common.HecioDeath
 import me.anhecio.hecioplugin.death.common.HecioDeathJavaScriptHandler
 import taboolib.common.LifeCycle
 import taboolib.common.platform.Awake
@@ -15,23 +16,33 @@ import javax.script.ScriptContext
  * @since 2025/5/31 20:01
  */
 class DefaultHecioDeathJavaScripHandler : HecioDeathJavaScriptHandler {
-    override fun compile(script: String): CompiledScript? {
-        TODO("Not yet implemented")
+
+    /**
+     * 获取一个共享上下文的Nashorn引擎
+     */
+    val globalEngine by lazy { DefaultHecioDeathScriptManager.nashornHooker.getGlobalEngine() }
+
+    override fun eval(script: String, map: Map<String, Any?>): Any? {
+        val bindings = globalEngine.createBindings()
+        bindings.putAll(map)
+        return  globalEngine.eval(script, bindings)
     }
 
-    override fun eval(script: String, context: ScriptContext?): Any? {
-        TODO("Not yet implemented")
+    override fun run(id: String, map: Map<String, Any?>): Any? {
+        val compiled = DefaultHecioDeathScriptManager.compiledScripts[id] ?: return null
+        val bindings = compiled.scriptEngine.createBindings()
+        bindings.putAll(map)
+        return compiled.handle.eval(bindings)
     }
 
-    override fun evalCompiled(script: CompiledScript, context: ScriptContext?): Any? {
-        TODO("Not yet implemented")
-    }
-
+    override fun preheat() = DefaultHecioDeathScriptManager.preheat()
 
     companion object {
         @Awake(LifeCycle.CONST)
         fun init() {
             PlatformFactory.registerAPI<HecioDeathJavaScriptHandler>(DefaultHecioDeathJavaScripHandler())
         }
+        @Awake(LifeCycle.ENABLE)
+        fun preheat() = HecioDeath.api().getJavaScriptHandler().preheat()
     }
 }

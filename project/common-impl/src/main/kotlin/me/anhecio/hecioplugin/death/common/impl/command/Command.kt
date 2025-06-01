@@ -10,6 +10,7 @@ import taboolib.common.platform.command.mainCommand
 import taboolib.common.platform.command.subCommand
 import taboolib.common.platform.function.console
 import taboolib.module.lang.sendLang
+import taboolib.platform.util.sendLang
 
 /**
  * HecioDeath
@@ -31,6 +32,20 @@ object Command {
     }
 
     @CommandBody
+    val invoke = subCommand {
+        dynamic("script", optional = false) {
+            execute<CommandSender> { sender, context, _ ->
+                val map = mapOf("sender" to sender)
+                val result = HecioDeath.api().getJavaScriptHandler().eval(
+                    context["script"],
+                    map,
+                )
+                sender.sendLang("Plugin-Result", result ?: "Null")
+            }
+        }
+    }
+
+    @CommandBody
     val reload = subCommand {
         execute<CommandSender> { sender, _, _ ->
             val timing = timing()
@@ -39,6 +54,8 @@ object Command {
             HecioDeath.api().getMatcher().getConfigManager().reload()
             // 重载惩罚管理器
             HecioDeath.api().getPenalty().getConfigManager().reload()
+            // 重载预热脚本配置
+            HecioDeath.api().getJavaScriptHandler().preheat()
 
             console().sendLang("Plugin-Reloaded", timing(timing))
         }

@@ -11,18 +11,19 @@ import javax.script.ScriptContext
  * @since 2025/5/31 19:57
  */
 interface HecioDeathJavaScriptHandler {
-    /**
-     * 编译脚本
-     */
-    fun compile(script: String): CompiledScript?
 
     /**
      * 执行脚本
      */
-    fun eval(script: String, context: ScriptContext? = null): Any?
+    fun eval(script: String, map: Map<String, Any?> = emptyMap()): Any?
 
     /**
-     * 执行已编译的脚本
+     * 执行指定Id的已编译脚本
      */
-    fun evalCompiled(script: CompiledScript, context: ScriptContext? = null): Any?
+    fun run(id: String, map: Map<String, Any?> = emptyMap()): Any?
+
+    /**
+     * 预热脚本
+     */
+    fun preheat()
 }

@@ -2,6 +2,7 @@ package me.anhecio.hecioplugin.death.common.util
 
 import taboolib.common.platform.function.getDataFolder
 import taboolib.common.platform.function.releaseResourceFolder
+import taboolib.library.configuration.ConfigurationSection
 import taboolib.module.configuration.Configuration
 import taboolib.module.configuration.Configuration.Companion.getTypeFromExtension
 import taboolib.module.configuration.Configuration.Companion.getTypeFromExtensionOrNull
@@ -76,4 +77,12 @@ fun buildFileId(file: File, directory: String): String {
     val targetPath = file.toPath().normalize()
     val relativePath = rootPath.relativize(targetPath)
     return relativePath.toString().replace(File.separatorChar, '.').substringBeforeLast('.')
+}
+/**
+ * 获取配置中的所有 ConfigurationSection（仅第一层节点）
+ *
+ * @return 配置中的所有 ConfigurationSection
+ */
+fun Configuration.getConfigSections(): List<ConfigurationSection> {
+    return getKeys(false).mapNotNull { key -> getConfigurationSection(key) }
 }
