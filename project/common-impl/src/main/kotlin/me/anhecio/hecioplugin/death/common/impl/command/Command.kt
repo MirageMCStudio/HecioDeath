@@ -2,10 +2,14 @@ package me.anhecio.hecioplugin.death.common.impl.command
 
 import me.anhecio.hecioplugin.death.common.HecioDeath
 import me.anhecio.hecioplugin.death.common.util.createTabooLegacyStyleCommandHelper
+import me.anhecio.hecioplugin.death.common.util.timing
+import org.bukkit.command.CommandSender
 import taboolib.common.platform.command.CommandBody
 import taboolib.common.platform.command.CommandHeader
 import taboolib.common.platform.command.mainCommand
 import taboolib.common.platform.command.subCommand
+import taboolib.common.platform.function.console
+import taboolib.module.lang.sendLang
 
 /**
  * HecioDeath
@@ -28,10 +32,16 @@ object Command {
 
     @CommandBody
     val reload = subCommand {
-        // 重载匹配管理器
-        HecioDeath.api().getMatcher().getConfigManager().reload()
-        // 重载惩罚管理器
-        HecioDeath.api().getPenalty().getConfigManager().reload()
+        execute<CommandSender> { sender, _, _ ->
+            val timing = timing()
+
+            // 重载匹配管理器
+            HecioDeath.api().getMatcher().getConfigManager().reload()
+            // 重载惩罚管理器
+            HecioDeath.api().getPenalty().getConfigManager().reload()
+
+            console().sendLang("Plugin-Reloaded", timing(timing))
+        }
     }
 
 }

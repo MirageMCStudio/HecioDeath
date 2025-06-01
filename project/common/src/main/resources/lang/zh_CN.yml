@@ -4,10 +4,11 @@
 # 插件相关
 
 Plugin-Loading: '&l&7正在加载 &3Hecio&bDeath&8&f... &8{0}'
-Plugin-Loaded: '&l&3Hecio&bDeath &7> &3成功载入 &7{0} &3个匹配器, &7{1} &3个惩罚器配置.)'
-Plugin-Enabled: '&l&3Hecio&bDeath &7> &3插件加载完毕.'
+Plugin-Enabled:
+  - '&l&3Hecio&bDeath &7> &3成功载入 &7{0} &3个匹配器, &7{1} &3个惩罚器配置.'
+  - '&l&3Hecio&bDeath &7> &3插件加载完毕. &f(v{2})'
 Plugin-Disabled: '&l&3Hecio&bDeath &7> &3插件卸载完毕.'
-Plugin-Reloaded: '&l&3Hecio&bDeath &7> &3插件重载完毕.'
+Plugin-Reloaded: '&l&3Hecio&bDeath &7> &3插件重载完毕. &f({0}ms)'
 Plugin-Debug: '&l&3Hecio&bDeath &7> &f{0}'
 Plugin-Hooker: '&l&3Hecio&bDeath &7> &3插件挂钩&a成功 &7-> &f{0}.'
 
@@ -15,7 +16,7 @@ Plugin-Hooker: '&l&3Hecio&bDeath &7> &3插件挂钩&a成功 &7-> &f{0}.'
 
 # 命令帮助相关
 
--helper:
+command-helper:
   - '&7'
   - '  &l&3Hecio&bDeath &7v{pluginVersion}'
   - '&7'

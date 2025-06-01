@@ -1,4 +1,4 @@
-package me.anhecio.hecioplugin.module.penalty
+package me.anhecio.hecioplugin.death.module.penalty
 
 import me.anhecio.hecioplugin.death.common.HecioDeathConfigService
 import me.anhecio.hecioplugin.death.common.HecioDeathPenaltyHandler

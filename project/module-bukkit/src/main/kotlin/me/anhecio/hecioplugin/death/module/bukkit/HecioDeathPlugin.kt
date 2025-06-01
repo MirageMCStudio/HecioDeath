@@ -8,6 +8,7 @@ import taboolib.common.LifeCycle
 import taboolib.common.platform.Plugin
 import taboolib.common.platform.function.console
 import taboolib.common.platform.function.disablePlugin
+import taboolib.common.platform.function.pluginVersion
 import taboolib.common.platform.function.registerLifeCycleTask
 import taboolib.module.lang.sendLang
 import taboolib.module.lang.sendMessage
@@ -33,15 +34,14 @@ object HecioDeathPlugin : Plugin() {
 
     override fun onLoad() {
         console().sendMessage("")
-        console().sendLang("Plugin-Loaded", Bukkit.getServer().version)
+        console().sendLang("Plugin-Loading", Bukkit.getServer().version)
         console().sendMessage("")
     }
 
     override fun onEnable() {
         val matcherCache = HecioDeath.api().getMatcher().getConfigManager().cache
         val penaltyCache = HecioDeath.api().getPenalty().getConfigManager().cache
-        console().sendLang("Plugin-Loaded", matcherCache.size, penaltyCache.size)
-        console().sendLang("Plugin-Enabled")
+        console().sendLang("Plugin-Enabled", matcherCache.size, penaltyCache.size, pluginVersion)
         debug("Debug 模式已开启.")
     }
 
