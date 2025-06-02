@@ -1,5 +1,5 @@
 ![](https://s21.ax1x.com/2025/06/01/pV90mwD.png)
-
+> HecioDeath v2.0.0 仍处于前期开发状态，请勿投入使用。
 # HecioDeath v2.0.0
 HecioDeath 是免费的，但我们不提供 jar 文件，你可以通过以下步骤自行构建插件。
 
