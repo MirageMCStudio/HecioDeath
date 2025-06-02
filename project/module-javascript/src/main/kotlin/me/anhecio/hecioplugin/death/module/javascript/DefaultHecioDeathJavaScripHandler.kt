@@ -23,16 +23,17 @@ class DefaultHecioDeathJavaScripHandler : HecioDeathJavaScriptHandler {
     val globalEngine by lazy { DefaultHecioDeathScriptManager.nashornHooker.getGlobalEngine() }
 
     override fun eval(script: String, map: Map<String, Any?>): Any? {
-        val bindings = globalEngine.createBindings()
+        val compiled = DefaultHecioDeathCompiledScript(script)
+        val bindings = globalEngine.getBindings(ScriptContext.ENGINE_SCOPE)
         bindings.putAll(map)
-        return  globalEngine.eval(script, bindings)
+        return  compiled.eval()
     }
 
     override fun run(id: String, map: Map<String, Any?>): Any? {
         val compiled = DefaultHecioDeathScriptManager.compiledScripts[id] ?: return null
-        val bindings = compiled.scriptEngine.createBindings()
+        val bindings = compiled.scriptEngine.getBindings(ScriptContext.ENGINE_SCOPE)
         bindings.putAll(map)
-        return compiled.handle.eval(bindings)
+        return compiled.eval()
     }
 
     override fun preheat() = DefaultHecioDeathScriptManager.preheat()
@@ -42,7 +43,5 @@ class DefaultHecioDeathJavaScripHandler : HecioDeathJavaScriptHandler {
         fun init() {
             PlatformFactory.registerAPI<HecioDeathJavaScriptHandler>(DefaultHecioDeathJavaScripHandler())
         }
-        @Awake(LifeCycle.ENABLE)
-        fun preheat() = HecioDeath.api().getJavaScriptHandler().preheat()
     }
 }

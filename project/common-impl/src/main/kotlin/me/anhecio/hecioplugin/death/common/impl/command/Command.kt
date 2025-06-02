@@ -1,6 +1,8 @@
 package me.anhecio.hecioplugin.death.common.impl.command
 
 import me.anhecio.hecioplugin.death.common.HecioDeath
+import me.anhecio.hecioplugin.death.common.HecioDeathSettings
+import me.anhecio.hecioplugin.death.common.impl.command.sub.matcherSubCommand
 import me.anhecio.hecioplugin.death.common.util.createTabooLegacyStyleCommandHelper
 import me.anhecio.hecioplugin.death.common.util.timing
 import org.bukkit.command.CommandSender
@@ -32,6 +34,9 @@ object Command {
     }
 
     @CommandBody
+    val matcher = matcherSubCommand
+
+    @CommandBody
     val invoke = subCommand {
         dynamic("script", optional = false) {
             execute<CommandSender> { sender, context, _ ->
@@ -50,6 +55,8 @@ object Command {
         execute<CommandSender> { sender, _, _ ->
             val timing = timing()
 
+            // 重载插件配置管理器
+            HecioDeathSettings.setting.reload()
             // 重载匹配管理器
             HecioDeath.api().getMatcher().getConfigManager().reload()
             // 重载惩罚管理器

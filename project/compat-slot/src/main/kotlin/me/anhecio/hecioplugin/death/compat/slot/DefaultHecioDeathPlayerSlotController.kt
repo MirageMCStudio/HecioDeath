@@ -17,6 +17,7 @@ import taboolib.common.platform.Awake
 import taboolib.common.platform.PlatformFactory
 import taboolib.common.platform.function.console
 import taboolib.module.lang.sendLang
+import taboolib.module.lang.sendMessage
 
 /**
  * HecioDeath
@@ -27,17 +28,13 @@ import taboolib.module.lang.sendLang
  */
 class DefaultHecioDeathPlayerSlotController : HecioDeathPlayerSlotController {
 
-    override val slots = mutableMapOf<CompatSlot, ItemStack>()
-
-    override val types = mutableSetOf<PlayerSlotType>()
 
     override fun toCompatSlot(slotId: String, slotType: PlayerSlotType): CompatSlot {
         return CompatSlot(slotId, slotType)
     }
 
-    override fun PlayerSlotType.isEnabled(): Boolean = types.contains(this)
-
     override fun getPlayerAllSlots(player: Player): Map<CompatSlot, ItemStack> {
+        val slots = mutableMapOf<CompatSlot, ItemStack>()
         HecioDeathSettings.compatSlot.forEach { compat ->
             val type = compat.parseToSlotType()
             if (!type.isEnabled()) error("槽位插件未挂钩: $type")
@@ -74,6 +71,10 @@ class DefaultHecioDeathPlayerSlotController : HecioDeathPlayerSlotController {
     }
 
     companion object {
+        val types = mutableSetOf<PlayerSlotType>()
+
+        fun PlayerSlotType.isEnabled() = types.contains(this)
+
         @Awake(LifeCycle.CONST)
         fun init() {
             PlatformFactory.registerAPI<HecioDeathPlayerSlotController>(DefaultHecioDeathPlayerSlotController())
@@ -84,11 +85,11 @@ class DefaultHecioDeathPlayerSlotController : HecioDeathPlayerSlotController {
             HecioDeathSettings.compatSlot.forEach { compat ->
                 val type = compat.parseToSlotType()
                 if (type == PlayerSlotType.Vanilla) {
-                    DefaultHecioDeathPlayerSlotController().types.add(type)
+                    types.add(type)
                     return@forEach
                 }
                 if (Bukkit.getPluginManager().isPluginEnabled(type.toString())) {
-                    DefaultHecioDeathPlayerSlotController().types.add(type)
+                    types.add(type)
                     console().sendLang("Plugin-Hooker", type.toString())
                 }
             }

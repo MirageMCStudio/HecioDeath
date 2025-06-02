@@ -16,4 +16,4 @@ item-matcher-example:
 name-matcher-example:
   type: "name"
   requires:
-    not-in: ["Joker"]
+    out: ["Joker"]

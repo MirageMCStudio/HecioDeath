@@ -1,5 +1,6 @@
 package me.anhecio.hecioplugin.death.module.matcher.handler
 
+import me.anhecio.hecioplugin.death.common.util.debug
 import me.anhecio.hecioplugin.death.module.matcher.api.MatcherHandler
 import me.anhecio.hecioplugin.death.module.matcher.api.MatcherRegistry
 import org.bukkit.entity.Player
@@ -19,9 +20,10 @@ import taboolib.library.configuration.ConfigurationSection
 object PermissionMatcherHandler : MatcherHandler {
     override val name: String = "Permission"
 
-    override fun match(event: PlayerDeathEvent, config: ConfigurationSection): Boolean {
+    override fun match(context: Map<String, Any?>, config: ConfigurationSection): Boolean {
         val requires = config.getConfigurationSection("requires") ?: return true
-        val player = event.entity.player!!
+        val player = (context["player"] ?: error("不存在待匹配玩家")) as Player
+
         // "has": 玩家拥有 requires 中的所有权限
         requires.getStringList("has").takeIf { it.isNotEmpty() }?.let { permList->
             if (permList.any { !player.hasPermission(it) }) return false

@@ -23,7 +23,6 @@ object HecioDeathSettings {
      */
     @ConfigNode("options.debug")
     var debug = false
-
     /**
      * 插件兼容的领地插件
      */
@@ -35,6 +34,5 @@ object HecioDeathSettings {
      */
     @ConfigNode("options.compat-slot")
     var compatSlot = emptyList<String>()
-
 
 }

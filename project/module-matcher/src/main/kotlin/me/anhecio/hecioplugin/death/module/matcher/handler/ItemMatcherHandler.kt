@@ -2,6 +2,7 @@ package me.anhecio.hecioplugin.death.module.matcher.handler
 
 import me.anhecio.hecioplugin.death.common.HecioDeath
 import me.anhecio.hecioplugin.death.common.compat.type.PlayerSlotType
+import me.anhecio.hecioplugin.death.common.util.debug
 import me.anhecio.hecioplugin.death.common.util.parseToSlotType
 import me.anhecio.hecioplugin.death.module.matcher.api.MatcherHandler
 import me.anhecio.hecioplugin.death.module.matcher.api.MatcherRegistry
@@ -11,6 +12,7 @@ import sun.audio.AudioPlayer.player
 import taboolib.common.LifeCycle
 import taboolib.common.platform.Awake
 import taboolib.library.configuration.ConfigurationSection
+import taboolib.platform.util.broadcast
 
 /**
  * HecioDeath
@@ -22,9 +24,10 @@ import taboolib.library.configuration.ConfigurationSection
 object ItemMatcherHandler : MatcherHandler {
     override val name: String = "Item"
 
-    override fun match(event: PlayerDeathEvent, config: ConfigurationSection): Boolean {
+    override fun match(context: Map<String, Any?>, config: ConfigurationSection): Boolean {
         val requires = config.getConfigurationSection("requires") ?: return true
-        val player = event.entity.player!!
+        val player = (context["player"] ?: error("不存在待匹配玩家")) as Player
+
 
         // 获取玩家槽位控制器
         val controller = HecioDeath.api().getPlayerSlotController()

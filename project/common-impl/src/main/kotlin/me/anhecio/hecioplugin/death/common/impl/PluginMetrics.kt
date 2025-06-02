@@ -20,7 +20,7 @@ import taboolib.module.metrics.charts.SingleLineChart
  * @author Anhecio
  * @since 2025/6/1 20:39
  */
-class PluginMetrics {
+object PluginMetrics {
     lateinit var metrics: Metrics
 
     @Awake(LifeCycle.ACTIVE)

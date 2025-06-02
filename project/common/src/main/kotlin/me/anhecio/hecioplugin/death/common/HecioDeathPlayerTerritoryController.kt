@@ -16,19 +16,10 @@ import org.bukkit.entity.Player
  */
 interface HecioDeathPlayerTerritoryController {
     /**
-     * 启用的领地类型
-     */
-    val types: MutableSet<PlayerTerritoryType>
-
-    /**
      * 解析领地Id为CompatTerritory
      */
     fun toCompatTerritory(territoryId: String, territoryType: PlayerTerritoryType): CompatTerritory
 
-    /**
-     * 判断指定领地是否启用
-     */
-    fun PlayerTerritoryType.isEnabled(): Boolean
 
     /**
      * 获取玩家当前处在的领地

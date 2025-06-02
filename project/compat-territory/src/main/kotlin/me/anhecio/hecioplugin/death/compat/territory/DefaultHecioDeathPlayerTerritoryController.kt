@@ -25,13 +25,9 @@ import taboolib.module.lang.sendLang
  * @since 2025/5/31 19:56
  */
 class DefaultHecioDeathPlayerTerritoryController : HecioDeathPlayerTerritoryController {
-    override val types = mutableSetOf<PlayerTerritoryType>()
-
     override fun toCompatTerritory(territoryId: String, territoryType: PlayerTerritoryType): CompatTerritory {
         return CompatTerritory(territoryId, territoryType)
     }
-
-    override fun PlayerTerritoryType.isEnabled(): Boolean = types.contains(this)
 
     override fun getLocationTerritory(player: Player): CompatTerritory? {
         HecioDeathSettings.compatTerritory.forEach { territory ->
@@ -47,6 +43,10 @@ class DefaultHecioDeathPlayerTerritoryController : HecioDeathPlayerTerritoryCont
     }
 
     companion object {
+        val types = mutableSetOf<PlayerTerritoryType>()
+
+        fun PlayerTerritoryType.isEnabled() = types.contains(this)
+
         @Awake(LifeCycle.CONST)
         fun init() {
             PlatformFactory.registerAPI<HecioDeathPlayerTerritoryController>(DefaultHecioDeathPlayerTerritoryController())
@@ -56,7 +56,7 @@ class DefaultHecioDeathPlayerTerritoryController : HecioDeathPlayerTerritoryCont
             HecioDeathSettings.compatTerritory.forEach { compat ->
                 val type = compat.parseToTerritoryType()
                 if (Bukkit.getPluginManager().isPluginEnabled(type.toString())) {
-                    DefaultHecioDeathPlayerTerritoryController().types.add(type)
+                    types.add(type)
                     console().sendLang("Plugin-Hooker", type.toString())
                 }
             }

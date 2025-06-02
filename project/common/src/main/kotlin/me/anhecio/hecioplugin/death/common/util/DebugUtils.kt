@@ -17,5 +17,5 @@ fun debug(text: String) {
 }
 
 fun debug(block: () -> Unit) {
-    if (HecioDeathSettings.debug) block
+    if (HecioDeathSettings.debug) block()
 }

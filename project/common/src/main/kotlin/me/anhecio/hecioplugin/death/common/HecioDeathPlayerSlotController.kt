@@ -15,25 +15,9 @@ import org.bukkit.inventory.ItemStack
 interface HecioDeathPlayerSlotController {
 
     /**
-     * 玩家所有适配槽位物品
-     */
-    val slots: MutableMap<CompatSlot, ItemStack>
-
-    /**
-     * 启用的槽位类型
-     */
-    val types: MutableSet<PlayerSlotType>
-
-    /**
      * 解析槽位Id为CompatSlot
      */
     fun toCompatSlot(slotId: String, slotType: PlayerSlotType): CompatSlot
-
-    /**
-     * 判断指定槽位是否启用
-     */
-    fun PlayerSlotType.isEnabled(): Boolean
-
 
     /**
      * 获取指定玩家所有适配的槽位物品

@@ -15,6 +15,6 @@ interface MatcherHandler {
 
     val name: String
 
-    fun match(event: PlayerDeathEvent, config: ConfigurationSection): Boolean
+    fun match(context: Map<String, Any?>, config: ConfigurationSection): Boolean
 
 }

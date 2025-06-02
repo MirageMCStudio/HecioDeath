@@ -12,5 +12,5 @@ import taboolib.platform.type.BukkitProxyEvent
  */
 sealed class HecioDeathPenaltyEvent {
     class PreEvent(val event: PlayerDeathEvent) : BukkitProxyEvent()
-    class PostEvent(val event: PlayerDeathEvent, val penaltyId: String) : BukkitProxyEvent()
+    class PostEvent(val context: Map<String, Any?>, val penaltyId: String) : BukkitProxyEvent()
 }

@@ -8,6 +8,7 @@ import me.anhecio.hecioplugin.death.module.javascript.hook.impl.LegacyNashornHoo
 import me.anhecio.hecioplugin.death.module.javascript.hook.impl.NashornHookerImpl
 import taboolib.common.LifeCycle
 import taboolib.common.platform.Awake
+import taboolib.module.lang.Language.path
 import javax.script.CompiledScript
 
 /**
@@ -41,6 +42,7 @@ object DefaultHecioDeathScriptManager {
             else -> NashornHookerImpl()
         }
 
+    @Awake(LifeCycle.ENABLE)
     fun preheat() {
         // 获取匹配配置管理器
         val matcherManager = HecioDeath.api().getMatcher().getConfigManager()
@@ -57,9 +59,8 @@ object DefaultHecioDeathScriptManager {
             configuration.getConfigSections()
                 .filter { it.getString("type").equals("javascript", ignoreCase = true) }
                 .forEach { section ->
-                    val path = id + section.name
-                    val script = section.getString("run") ?: error("配置 '$path' 不存在 'run' 节点")
-                    compiledScripts[path] = DefaultHecioDeathCompiledScript(script)
+                    val script = section.getString("run") ?: error("配置 '$id::${section.name}' 不存在 'run' 节点")
+                    compiledScripts[script] = DefaultHecioDeathCompiledScript(script)
                 }
         }
     }

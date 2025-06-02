@@ -1,9 +1,11 @@
 package me.anhecio.hecioplugin.death.module.matcher.handler
 
 import me.anhecio.hecioplugin.death.common.HecioDeath
+import me.anhecio.hecioplugin.death.common.util.debug
 import me.anhecio.hecioplugin.death.common.util.parseToTerritoryType
 import me.anhecio.hecioplugin.death.module.matcher.api.MatcherHandler
 import me.anhecio.hecioplugin.death.module.matcher.api.MatcherRegistry
+import org.bukkit.entity.Player
 import org.bukkit.event.entity.PlayerDeathEvent
 import taboolib.common.LifeCycle
 import taboolib.common.platform.Awake
@@ -19,9 +21,10 @@ import taboolib.library.configuration.ConfigurationSection
 object TerritoryMatcherHandler : MatcherHandler {
     override val name: String = "Territory"
 
-    override fun match(event: PlayerDeathEvent, config: ConfigurationSection): Boolean {
+    override fun match(context: Map<String, Any?>, config: ConfigurationSection): Boolean {
         val requires = config.getConfigurationSection("requires") ?: return true
-        val player = event.entity.player!!
+        val player = (context["player"] ?: error("不存在待匹配玩家")) as Player
+
         val territory = HecioDeath.api().getPlayerTerritoryController().getLocationTerritory(player)
         if (territory == null && requires.contains("out")) return true
         else if (territory == null) return false

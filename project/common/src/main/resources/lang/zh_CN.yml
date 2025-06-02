@@ -9,9 +9,16 @@ Plugin-Enabled:
   - '&l&3Hecio&bDeath &7> &3插件加载完毕. &7(v{2})'
 Plugin-Disabled: '&l&3Hecio&bDeath &7> &3插件卸载完毕.'
 Plugin-Reloaded: '&l&3Hecio&bDeath &7> &3插件重载完毕. &7({0}ms)'
-Plugin-Debug: '&l&3Hecio&bDeath &7> &f{0}'
+Plugin-Debug: '&l&3Hecio&bDeath &e[/] &f{0}'
 Plugin-Hooker: '&l&3Hecio&bDeath &7> &3插件挂钩&a成功 &7-> &f{0}.'
 Plugin-Result: ' &b&l‹ ›&f {0}'
+
+
+
+# 命令信息相关
+
+Command-Matcher-Node: '&l&3Hecio&bDeath &7> &3匹配器 §f{0} &3的 §f{1} &3节点匹配结果为: &f{2}'
+Command-Matcher-All-Node: '&l&3Hecio&bDeath &7> &3匹配器 §f{0} &3的所有节点匹配结果为: &f{1}'
 
 
 
@@ -43,6 +50,9 @@ command-argument-unknown:
 command-incorrect-sender: '&l&3Hecio&bDeath &7> &7指令 &f{name} &7只能由 &f玩家 &7执行'
 
 command-no-desc: '当前指令不存在描述'
+
+command-subCommands-invoke-description: '运行JavaScript脚本'
+command-subCommands-invoke-usage: '&7[&8必填参数&7]'
 
 command-subCommands-reload-description: '重载插件配置'
 command-subCommands-reload-usage: ''

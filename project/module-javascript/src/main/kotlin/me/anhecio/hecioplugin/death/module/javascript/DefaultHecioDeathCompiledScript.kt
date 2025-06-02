@@ -1,6 +1,9 @@
 package me.anhecio.hecioplugin.death.module.javascript
 
 import me.anhecio.hecioplugin.death.module.javascript.DefaultHecioDeathScriptManager.nashornHooker
+import sun.misc.Signal.handle
+import javax.script.Bindings
+import javax.script.CompiledScript
 
 import javax.script.ScriptEngine
 
@@ -11,42 +14,64 @@ import javax.script.ScriptEngine
  * @author Anhecio
  * @since 2025/6/1 16:47
  */
-open class DefaultHecioDeathCompiledScript {
-    val handle: javax.script.CompiledScript
+class DefaultHecioDeathCompiledScript(script: String) {
 
     /**
-     * 获取该脚本对应的ScriptEngine
+     * 当前脚本对应的 ScriptEngine
      */
     val scriptEngine: ScriptEngine = nashornHooker.getNashornEngine()
 
     /**
-     * 编译js脚本并进行包装, 便于调用其中的指定函数
-     *
-     * @property script js脚本文本
-     * @constructor 编译js脚本并进行包装
+     * 编译后脚本
      */
-    constructor(script: String) {
+    val compiledScript: CompiledScript = nashornHooker.compile(scriptEngine, script)
+
+    init {
         loadLib()
-        handle = nashornHooker.compile(scriptEngine, script)
-        magicFunction()
     }
 
     /**
-     * 加载JS前置库
+     * 加载脚本执行所需
      */
-    open fun loadLib() {}
+    private fun loadLib() {
+        val bindings = scriptEngine.createBindings()
+        bindings.putAll(
+            mapOf(
+                "Bukkit" to org.bukkit.Bukkit::class.java,
+                "Arrays" to java.util.Arrays::class.java,
+                "Material" to  org.bukkit.Material::class.java,
+                "ItemStack" to org.bukkit.inventory.ItemStack::class.java,
+                "plugin" to org.bukkit.Bukkit.getPluginManager().getPlugin("HecioDeath")!!::class.java,
+                "scheduler" to org.bukkit.Bukkit.getScheduler()::class.java,
+                "HecioDeath" to me.anhecio.hecioplugin.death.common.HecioDeath::class.java
+            )
+        )
+        scriptEngine.setBindings(bindings,javax.script.ScriptContext.ENGINE_SCOPE)
+    }
 
-    /**
-     * 此段代码用于解决js脚本的高并发调用问题, 只可意会不可言传
-     */
-    private fun magicFunction() {
-        handle.eval()
+    fun injectPrototypeWrapper() {
         scriptEngine.eval(
             """
             function HecioDeathNumberOne() {}
             HecioDeathNumberOne.prototype = this
             function newObject() { return new HecioDeathNumberOne() }
-        """
+            """.trimIndent()
         )
+    }
+
+    /**
+     * 执行脚本 绑定新Bindings
+     */
+    fun eval(bindings: Bindings) {
+        compiledScript.eval(bindings)
+        injectPrototypeWrapper()
+    }
+
+    /**
+     * 执行脚本 使用原有Bindings
+     */
+    fun eval() {
+        compiledScript.eval()
+        injectPrototypeWrapper()
     }
 }
