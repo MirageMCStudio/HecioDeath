@@ -98,7 +98,7 @@ class DefaultHecioDeathMatcherHandler : HecioDeathMatcherHandler {
 
 
     companion object {
-        val config = HecioDeathConfigService("matcher")
+        val config = HecioDeathConfigService("matcher") {}
 
         @Awake(LifeCycle.CONST)
         fun init() {

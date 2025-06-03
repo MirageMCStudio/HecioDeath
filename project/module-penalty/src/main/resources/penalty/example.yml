@@ -1,0 +1,3 @@
+options:
+  bind-matcher:
+    all: ["example::*"]

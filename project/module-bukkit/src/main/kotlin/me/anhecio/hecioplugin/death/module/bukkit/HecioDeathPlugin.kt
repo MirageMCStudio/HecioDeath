@@ -40,7 +40,7 @@ object HecioDeathPlugin : Plugin() {
 
     override fun onEnable() {
         val matcherCache = HecioDeath.api().getMatcher().getConfigManager().cache
-        val penaltyCache = HecioDeath.api().getPenalty().getConfigManager().cache
+        val penaltyCache = HecioDeath.api().getPenalty().getParsedConfigManager()
         console().sendLang("Plugin-Enabled", matcherCache.size, penaltyCache.size, pluginVersion)
         debug("Debug 模式已开启.")
     }

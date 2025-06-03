@@ -24,6 +24,7 @@ fun listener(event: HecioDeathMatcherEvent) {
     }
     if (HecioDeath.api().getMatcher().matcher(event.context, event.matcherConfig)) {
         debug("└─ 惩罚器匹配成功.")
+        event.matched = true
         HecioDeathPenaltyEvent.PostEvent(event.context, event.penaltyId).call()
     } else {
         debug("└─ 惩罚器匹配失败.")

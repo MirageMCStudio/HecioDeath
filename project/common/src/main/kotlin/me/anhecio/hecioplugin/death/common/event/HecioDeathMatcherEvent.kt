@@ -11,4 +11,33 @@ import taboolib.platform.type.BukkitProxyEvent
  * @author Anhecio
  * @since 2025/5/31 15:42
  */
-class HecioDeathMatcherEvent(val context: Map<String, Any?>, val matcherConfig: ConfigurationSection, val penaltyId: String) : BukkitProxyEvent()
+class HecioDeathMatcherEvent(
+    val context: Map<String, Any?>,
+    val matcherConfig: ConfigurationSection,
+    val penaltyId: String,
+) : BukkitProxyEvent() {
+    var matched: Boolean = false
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

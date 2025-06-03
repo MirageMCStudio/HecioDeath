@@ -1,11 +1,14 @@
 package me.anhecio.hecioplugin.death.common.impl.listener
 
 import me.anhecio.hecioplugin.death.common.HecioDeath
+import me.anhecio.hecioplugin.death.common.HecioDeathSettings
 import me.anhecio.hecioplugin.death.common.event.HecioDeathMatcherEvent
 import me.anhecio.hecioplugin.death.common.event.HecioDeathPenaltyEvent
 import me.anhecio.hecioplugin.death.common.util.debug
 import org.bukkit.entity.Player
 import taboolib.common.platform.event.SubscribeEvent
+import taboolib.common.platform.function.console
+import taboolib.module.lang.sendLang
 
 /**
  * HecioDeath
@@ -28,11 +31,24 @@ fun pre(event: HecioDeathPenaltyEvent.PreEvent) {
     context.put("event", event.event)
     context.put("player", event.event.entity.player!!)
 
-    penaltyHandler.getConfigManager().cache.forEach { (penaltyId, _) ->
-        HecioDeathMatcherEvent(context, penaltyHandler.getBindMatchers(penaltyId), penaltyId).call()
+    val manager = penaltyHandler.getParsedConfigManager()
 
+    manager.forEach { (penaltyId, _) ->
+        val bind = penaltyHandler.getBindMatchers(penaltyId)
+        if (bind == null) return@forEach
+        val matcher = HecioDeathMatcherEvent(context, bind, penaltyId)
+        matcher.call()
+        if (matcher.matched) return
     }
 
+    debug {
+        val name = event.event.entity.player!!.name
+        debug("玩家 $name 不存在匹配的惩罚器配置.")
+        if (!HecioDeathSettings.default.isEmpty()) {
+            debug("检测到开启了默认配置项: ${HecioDeathSettings.default}")
+            HecioDeathPenaltyEvent.PostEvent(context, HecioDeathSettings.default).call()
+        }
+    }
 }
 
 @SubscribeEvent

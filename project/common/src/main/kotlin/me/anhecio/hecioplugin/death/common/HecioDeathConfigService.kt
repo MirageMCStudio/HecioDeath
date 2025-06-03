@@ -14,6 +14,7 @@ import taboolib.module.configuration.Type
  */
 class HecioDeathConfigService(
     val directory: String,
+    val callback: () -> Unit
 ) {
     /**
      * 配置缓存
@@ -42,5 +43,6 @@ class HecioDeathConfigService(
     fun reload() {
         cache.clear()
         load()
+        callback()
     }
 }

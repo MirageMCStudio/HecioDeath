@@ -35,4 +35,10 @@ object HecioDeathSettings {
     @ConfigNode("options.compat-slot")
     var compatSlot = emptyList<String>()
 
+    /**
+     * 当玩家没有匹配的配置启用的默认配置
+     */
+    @ConfigNode("options.penalty-default")
+    var default = "default"
+
 }

@@ -1,6 +1,6 @@
 options:
   debug: false
-  territory: ""
   compat-slot:
     - vanilla
   compat-territory: []
+  penalty-default: "default"
