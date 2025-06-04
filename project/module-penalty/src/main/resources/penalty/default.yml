@@ -1,2 +1,14 @@
 options:
   default: true
+respawn-default-penalty:
+  type: "respawn"
+  executor:
+    auto: false
+    type: "spawn"
+    location:
+      world: "world"
+      x: 100
+      y: 100
+      z: 100
+      yaw: 90
+      pitch: 0

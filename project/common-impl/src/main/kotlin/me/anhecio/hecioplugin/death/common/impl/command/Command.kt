@@ -3,6 +3,7 @@ package me.anhecio.hecioplugin.death.common.impl.command
 import me.anhecio.hecioplugin.death.common.HecioDeath
 import me.anhecio.hecioplugin.death.common.HecioDeathSettings
 import me.anhecio.hecioplugin.death.common.impl.command.sub.matcherSubCommand
+import me.anhecio.hecioplugin.death.common.impl.command.sub.penaltySubCommand
 import me.anhecio.hecioplugin.death.common.util.createTabooLegacyStyleCommandHelper
 import me.anhecio.hecioplugin.death.common.util.timing
 import org.bukkit.command.CommandSender
@@ -37,6 +38,9 @@ object Command {
     val matcher = matcherSubCommand
 
     @CommandBody
+    val penalty = penaltySubCommand
+
+    @CommandBody
     val invoke = subCommand {
         dynamic("script", optional = false) {
             execute<CommandSender> { sender, context, _ ->
@@ -64,7 +68,7 @@ object Command {
             // 重载预热脚本配置
             HecioDeath.api().getJavaScriptHandler().preheat()
 
-            console().sendLang("Plugin-Reloaded", timing(timing))
+            sender.sendLang("Plugin-Reloaded", timing(timing))
         }
     }
 

@@ -1,3 +1,69 @@
 options:
   bind-matcher:
     all: ["example::*"]
+
+level-example-penalty:
+  type: "level"
+  executor:
+    mode: "drop"
+    amount: "percentage"
+    didnt: 0
+    value: "50%"
+
+respawn-example-penalty:
+  type: "respawn"
+  executor:
+    auto: true
+    mode: "death"
+    location:
+      world: "world"
+      x: 100
+      y: 100
+      z: 100
+      yaw: 90
+      pitch: 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

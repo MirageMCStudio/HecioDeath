@@ -5,7 +5,10 @@ import me.anhecio.hecioplugin.death.common.HecioDeathSettings
 import me.anhecio.hecioplugin.death.common.event.HecioDeathMatcherEvent
 import me.anhecio.hecioplugin.death.common.event.HecioDeathPenaltyEvent
 import me.anhecio.hecioplugin.death.common.util.debug
+import org.bukkit.Bukkit
+import org.bukkit.Sound
 import org.bukkit.entity.Player
+import org.bukkit.event.entity.PlayerDeathEvent
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.console
 import taboolib.module.lang.sendLang
@@ -61,15 +64,40 @@ fun post(event: HecioDeathPenaltyEvent.PostEvent) {
         }
     }
 
+    // 把原版的死亡事件的东西能关的都关了
+    val deathEvent = event.context["event"] as PlayerDeathEvent
+    debug("开始尝试关闭原版死亡事件相关动作...")
+    disableVanillaDeathActions(deathEvent)
+    debug("成功关闭原版死亡事件相关动作.")
+
+    // 执行插件惩罚事件逻辑
+    debug {
+        val name = (event.context["player"] as Player).name
+        debug("开始为玩家 $name 执行惩罚器: ${event.penaltyId}")
+    }
 
 
+    HecioDeath.api().getPenalty().penalty(event.context, event.penaltyId)
 
+
+    debug("└─ 惩罚器执行完毕.")
 
     debug {
         val name = (event.context["player"] as Player).name
-        debug {
-            val id = event.penaltyId
-            debug("玩家 $name 的死亡事件处理完毕.")
-        }
+        debug("玩家 $name 的死亡事件处理完毕.")
     }
+}
+
+/**
+ * 关闭原版死亡事件相关动作
+ */
+fun disableVanillaDeathActions(event: PlayerDeathEvent) {
+
+    // 关闭背包掉落
+    event.keepInventory = true
+    // 关闭等级掉落
+    event.keepLevel = true
+    // 关闭死亡消息
+    event.deathMessage = null
+
 }

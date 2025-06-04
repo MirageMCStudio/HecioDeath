@@ -19,6 +19,8 @@ Plugin-Result: ' &b&l‹ ›&f {0}'
 
 Command-Matcher-Node: '&l&3Hecio&bDeath &7> &3匹配器 §f{0} &3的 §f{1} &3节点匹配结果为: &f{2}'
 Command-Matcher-All-Node: '&l&3Hecio&bDeath &7> &3匹配器 §f{0} &3的所有节点匹配结果为: &f{1}'
+Command-Penalty-Node: '&l&3Hecio&bDeath &7> &3惩罚器 §f{0} &3的 §f{1} &3节点执行完毕.'
+Command-Penalty-All-Node: '&l&3Hecio&bDeath &7> &3惩罚器 §f{0} &3的所有节点执行完毕.'
 
 
 
@@ -50,6 +52,12 @@ command-argument-unknown:
 command-incorrect-sender: '&l&3Hecio&bDeath &7> &7指令 &f{name} &7只能由 &f玩家 &7执行'
 
 command-no-desc: '当前指令不存在描述'
+
+command-subCommands-penalty-description: '执行指定惩罚器'
+command-subCommands-penalty-usage: '&7[&8必填参数&7] &7<&8选填参数&7> &7<&8选填参数&7>'
+
+command-subCommands-matcher-description: '执行指定匹配器'
+command-subCommands-matcher-usage: '&7[&8必填参数&7] &7<&8选填参数&7> &7<&8选填参数&7>'
 
 command-subCommands-invoke-description: '运行JavaScript脚本'
 command-subCommands-invoke-usage: '&7[&8必填参数&7]'

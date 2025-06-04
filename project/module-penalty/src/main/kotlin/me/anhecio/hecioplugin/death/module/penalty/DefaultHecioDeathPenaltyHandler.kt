@@ -1,12 +1,22 @@
 package me.anhecio.hecioplugin.death.module.penalty
 
+import me.anhecio.hecioplugin.death.common.BIND_NODE_PATH
+import me.anhecio.hecioplugin.death.common.DEFAULT_NODE_PATH
+import me.anhecio.hecioplugin.death.common.ENABLE_NODE_PATH
 import me.anhecio.hecioplugin.death.common.HecioDeathConfigService
 import me.anhecio.hecioplugin.death.common.HecioDeathPenaltyHandler
+import me.anhecio.hecioplugin.death.common.OPTIONS_NODE_PATH
+import me.anhecio.hecioplugin.death.common.WEIGHT_NODE_PATH
+import me.anhecio.hecioplugin.death.common.util.debug
+import me.anhecio.hecioplugin.death.common.util.getConfigSections
+import me.anhecio.hecioplugin.death.module.penalty.api.PenaltyHandler
+import me.anhecio.hecioplugin.death.module.penalty.api.PenaltyRegistry
 import taboolib.common.LifeCycle
 import taboolib.common.platform.Awake
 import taboolib.common.platform.PlatformFactory
 import taboolib.library.configuration.ConfigurationSection
 import taboolib.module.configuration.Configuration
+import taboolib.module.configuration.util.asMap
 
 /**
  * HecioDeath
@@ -22,6 +32,26 @@ class DefaultHecioDeathPenaltyHandler : HecioDeathPenaltyHandler {
 
     override fun getParsedConfigManager(): List<Map.Entry<String, Configuration>> = parsedConfigs
 
+    override fun evaluateAllNodes(id: String, context: Map<String, Any?>) {
+        val section = parsedConfigs.associate { it.toPair() }[id] ?: error("未知的惩罚器Id: $id")
+        section.getKeys(false).forEach { penalty ->
+            if (penalty == OPTIONS_NODE_PATH) return@forEach
+            evaluateNode(id, penalty, context)
+        }
+    }
+
+    override fun evaluateNode(id: String, penalty: String, context: Map<String, Any?>) {
+        val section = parsedConfigs.associate { it.toPair() }[id] ?: error("未知的惩罚器Id: $id")
+        val subSection = section.getConfigurationSection(penalty)
+            ?: error("无法在惩罚器 '$id' 中找到配置节点: $penalty")
+        val type = subSection.getString("type")
+            ?: error("'$id::$penalty' 中未设置匹配类型.")
+        val handler = PenaltyRegistry.get(type)
+            ?: error("'$id::$penalty' 使用了未知的惩罚类型: $type")
+        handler.penalty(context, subSection)
+        debug("|- 成功执行惩罚器: ${id + "::" + subSection.name}.")
+    }
+
     override fun getBindMatchers(penaltyId: String): ConfigurationSection? {
 
         val config = config.cache[penaltyId] ?: error("未知的惩罚器Id: '$penaltyId'")
@@ -36,6 +66,9 @@ class DefaultHecioDeathPenaltyHandler : HecioDeathPenaltyHandler {
 
     }
 
+    override fun penalty(context: Map<String, Any?>, penaltyId: String) = evaluateAllNodes(penaltyId, context)
+
+
     companion object {
 
         /** 主配置服务（惩罚器配置） */
@@ -43,14 +76,7 @@ class DefaultHecioDeathPenaltyHandler : HecioDeathPenaltyHandler {
             updateParsedConfigs()
         }
 
-        /** 常量节点名 */
-        const val OPTIONS_NODE_PATH = "options"
-        const val BIND_NODE_PATH = "bind-matcher"
-        const val WEIGHT_NODE_PATH = "weight"
-        const val DEFAULT_NODE_PATH = "default"
-        const val ENABLE_NODE_PATH = "enable"
-
-        /** 按权重排序后的缓存（默认空列表） */
+        /** 缓存 */
         private var parsedConfigs: List<Map.Entry<String, Configuration>> = emptyList()
 
         /** 更新缓存 */

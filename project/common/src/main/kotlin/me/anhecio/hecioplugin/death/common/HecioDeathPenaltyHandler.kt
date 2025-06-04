@@ -22,7 +22,22 @@ interface HecioDeathPenaltyHandler {
     fun getParsedConfigManager(): List<Map.Entry<String, Configuration>>
 
     /**
+     * 执行指定惩罚配置文件中的所有节点
+     */
+    fun evaluateAllNodes(id: String, context: Map<String, Any?>)
+
+    /**
+     * 执行指定惩罚配置文件中的指定节点
+     */
+    fun evaluateNode(id: String, penalty: String, context: Map<String, Any?>)
+
+    /**
      * 获取绑定匹配配置
      */
     fun getBindMatchers(penaltyId: String): ConfigurationSection?
+
+    /**
+     * 执行指定配置
+     */
+    fun penalty(context: Map<String, Any?>, penaltyId: String)
 }

@@ -42,3 +42,10 @@ object HecioDeathSettings {
     var default = "default"
 
 }
+
+/** 常量节点名 */
+const val OPTIONS_NODE_PATH = "options"
+const val BIND_NODE_PATH = "bind-matcher"
+const val WEIGHT_NODE_PATH = "weight"
+const val DEFAULT_NODE_PATH = "default"
+const val ENABLE_NODE_PATH = "enable"
