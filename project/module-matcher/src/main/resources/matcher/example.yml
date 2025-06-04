@@ -17,3 +17,11 @@ name-matcher-example:
   type: "name"
   requires:
     out: ["Joker"]
+
+javascript-matcher-example:
+  type: "javascript"
+  run: |
+    if (typeof event !== 'undefined') {
+      event.entity.player.sendMessage("matcher?")
+    }
+    player.sendMessage("matcher!")

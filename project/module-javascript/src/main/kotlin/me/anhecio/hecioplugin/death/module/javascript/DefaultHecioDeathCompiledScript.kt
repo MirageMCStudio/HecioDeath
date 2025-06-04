@@ -19,7 +19,7 @@ class DefaultHecioDeathCompiledScript(script: String) {
     /**
      * 当前脚本对应的 ScriptEngine
      */
-    val scriptEngine: ScriptEngine = nashornHooker.getNashornEngine()
+    var scriptEngine: ScriptEngine = nashornHooker.getNashornEngine()
 
     /**
      * 编译后脚本
@@ -46,7 +46,7 @@ class DefaultHecioDeathCompiledScript(script: String) {
                 "HecioDeath" to me.anhecio.hecioplugin.death.common.HecioDeath::class.java
             )
         )
-        scriptEngine.setBindings(bindings,javax.script.ScriptContext.ENGINE_SCOPE)
+        scriptEngine.setBindings(bindings,javax.script.ScriptContext.GLOBAL_SCOPE)
     }
 
     fun injectPrototypeWrapper() {
@@ -62,16 +62,19 @@ class DefaultHecioDeathCompiledScript(script: String) {
     /**
      * 执行脚本 绑定新Bindings
      */
-    fun eval(bindings: Bindings) {
-        compiledScript.eval(bindings)
+    fun eval(bindings: Bindings): Any? {
+        compiledScript.engine.setBindings(bindings, javax.script.ScriptContext.ENGINE_SCOPE)
+        val result: Any? = compiledScript.eval()
         injectPrototypeWrapper()
+        return result
     }
 
     /**
      * 执行脚本 使用原有Bindings
      */
-    fun eval() {
-        compiledScript.eval()
+    fun eval(): Any? {
+        val result: Any? = compiledScript.eval()
         injectPrototypeWrapper()
+        return result
     }
 }

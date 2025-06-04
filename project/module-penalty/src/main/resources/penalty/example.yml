@@ -2,7 +2,7 @@ options:
   bind-matcher:
     all: ["example::*"]
 
-level-example-penalty:
+level-penalty-example:
   type: "level"
   executor:
     mode: "drop"
@@ -10,7 +10,7 @@ level-example-penalty:
     didnt: 0
     value: "50%"
 
-respawn-example-penalty:
+respawn-penalty-example:
   type: "respawn"
   executor:
     auto: true
@@ -23,6 +23,15 @@ respawn-example-penalty:
       yaw: 90
       pitch: 0
 
+javascript-penalty-example:
+  type: "javascript"
+  run: |
+    if (typeof event !== 'undefined') {
+      event.entity.player.sendMessage("penalty?")
+    }
+    player.sendMessage("penalty!")
+  
+  
 
 
 

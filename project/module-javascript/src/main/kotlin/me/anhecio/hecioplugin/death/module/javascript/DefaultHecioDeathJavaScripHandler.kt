@@ -17,14 +17,10 @@ import javax.script.ScriptContext
  */
 class DefaultHecioDeathJavaScripHandler : HecioDeathJavaScriptHandler {
 
-    /**
-     * 获取一个共享上下文的Nashorn引擎
-     */
-    val globalEngine by lazy { DefaultHecioDeathScriptManager.nashornHooker.getGlobalEngine() }
-
     override fun eval(script: String, map: Map<String, Any?>): Any? {
         val compiled = DefaultHecioDeathCompiledScript(script)
-        val bindings = globalEngine.getBindings(ScriptContext.ENGINE_SCOPE)
+        val bindings = compiled.scriptEngine.getBindings(ScriptContext.ENGINE_SCOPE)
+        bindings.clear()
         bindings.putAll(map)
         return  compiled.eval()
     }
@@ -32,6 +28,7 @@ class DefaultHecioDeathJavaScripHandler : HecioDeathJavaScriptHandler {
     override fun run(id: String, map: Map<String, Any?>): Any? {
         val compiled = DefaultHecioDeathScriptManager.compiledScripts[id] ?: return null
         val bindings = compiled.scriptEngine.getBindings(ScriptContext.ENGINE_SCOPE)
+        bindings.clear()
         bindings.putAll(map)
         return compiled.eval()
     }
