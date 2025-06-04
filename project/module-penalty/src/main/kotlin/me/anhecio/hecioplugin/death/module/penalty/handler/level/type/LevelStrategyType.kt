@@ -7,7 +7,7 @@ package me.anhecio.hecioplugin.death.module.penalty.handler.level.type
  * @author Anhecio
  * @since 2025/6/4 13:33
  */
-enum class AmountStrategyType {
+enum class LevelStrategyType {
     /** 指定值 */
     FIXED,
     /** 百分比值 */

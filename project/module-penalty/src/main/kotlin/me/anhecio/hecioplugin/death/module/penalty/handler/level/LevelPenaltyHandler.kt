@@ -10,9 +10,9 @@ import me.anhecio.hecioplugin.death.common.util.toRange
 import me.anhecio.hecioplugin.death.module.penalty.api.PenaltyHandler
 import me.anhecio.hecioplugin.death.module.penalty.api.PenaltyRegistry
 import me.anhecio.hecioplugin.death.module.penalty.handler.level.data.LevelData
-import me.anhecio.hecioplugin.death.module.penalty.handler.level.type.AmountPenaltyType.*
-import me.anhecio.hecioplugin.death.module.penalty.handler.level.type.AmountStrategyType.*
-import me.anhecio.hecioplugin.death.module.penalty.handler.level.type.AmountUnitType.*
+import me.anhecio.hecioplugin.death.module.penalty.handler.level.type.LevelPenaltyType.*
+import me.anhecio.hecioplugin.death.module.penalty.handler.level.type.LevelStrategyType.*
+import me.anhecio.hecioplugin.death.module.penalty.handler.level.type.LevelUnitType.*
 import org.bukkit.entity.Player
 import taboolib.common.LifeCycle
 import taboolib.common.platform.Awake

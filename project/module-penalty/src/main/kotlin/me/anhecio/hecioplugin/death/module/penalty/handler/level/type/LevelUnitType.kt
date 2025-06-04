@@ -5,11 +5,12 @@ package me.anhecio.hecioplugin.death.module.penalty.handler.level.type
  * me.anhecio.hecioplugin.death.module.penalty.handler.level.type
  *
  * @author Anhecio
- * @since 2025/6/4 14:13
+ * @since 2025/6/4 14:12
  */
-enum class AmountPenaltyType {
-    /** 掉落经验 */
-    DROP,
-    /** 删除经验 */
-    REMOVE,
+enum class LevelUnitType {
+    /** 以经验值为单位 */
+    EXPERIENCE,
+
+    /** 以等级为单位 */
+    LEVEL,
 }

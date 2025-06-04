@@ -2,6 +2,22 @@ options:
   bind-matcher:
     all: ["example::*"]
 
+inventory-penalty-example:
+  type: "inventory"
+  executor:
+    filter:
+      - "slot::vanilla::0..7"
+      - "return"
+      - "slot::*::*"
+      - "filter::amount::percentage::50%"
+      - "return"
+      - "slot::germplugin::*"
+      - "match::material:c(STONE)"
+      - "return"
+    target:
+      mode: fancy
+
+
 level-penalty-example:
   type: "level"
   executor:
@@ -30,49 +46,3 @@ javascript-penalty-example:
       event.entity.player.sendMessage("penalty?")
     }
     player.sendMessage("penalty!")
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
