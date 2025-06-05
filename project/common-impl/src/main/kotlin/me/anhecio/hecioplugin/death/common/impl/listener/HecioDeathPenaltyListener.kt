@@ -47,10 +47,11 @@ fun pre(event: HecioDeathPenaltyEvent.PreEvent) {
     debug {
         val name = event.event.entity.player!!.name
         debug("玩家 $name 不存在匹配的惩罚器配置.")
-        if (!HecioDeathSettings.default.isEmpty()) {
-            debug("检测到开启了默认配置项: ${HecioDeathSettings.default}")
-            HecioDeathPenaltyEvent.PostEvent(context, HecioDeathSettings.default).call()
-        }
+    }
+
+    if (!HecioDeathSettings.default.isEmpty()) {
+        debug("检测到开启了默认配置项: ${HecioDeathSettings.default}")
+        HecioDeathPenaltyEvent.PostEvent(context, HecioDeathSettings.default).call()
     }
 }
 
