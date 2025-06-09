@@ -2,6 +2,13 @@ options:
   bind-matcher:
     all: ["example::*"]
 
+revive-penalty-example:
+  type: "revive"
+  executor:
+    delay: 120
+    refresh: 1
+    persistence: true
+
 inventory-penalty-example:
   type: "inventory"
   executor:

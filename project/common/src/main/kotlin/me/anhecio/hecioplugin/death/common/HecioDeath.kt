@@ -16,11 +16,6 @@ import java.util.UUID
 object HecioDeath {
     private var api: HecioDeathAPI? = null
 
-    /** 调度器实例 */
-    val bukkitScheduler by lazy { Bukkit.getScheduler() }
-    /** 插件实例 */
-    val plugin by lazy { BukkitPlugin.getInstance() }
-
     /**
      * 获取开发者接口
      */

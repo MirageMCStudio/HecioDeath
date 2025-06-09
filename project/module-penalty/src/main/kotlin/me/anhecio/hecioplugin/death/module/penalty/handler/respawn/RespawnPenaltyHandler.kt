@@ -10,6 +10,7 @@ import org.bukkit.Location
 import org.bukkit.entity.Player
 import taboolib.common.LifeCycle
 import taboolib.common.platform.Awake
+import taboolib.common.platform.function.submit
 import taboolib.library.configuration.ConfigurationSection
 import taboolib.module.configuration.Configuration.Companion.toObject
 import java.util.UUID
@@ -24,6 +25,9 @@ import java.util.UUID
 object RespawnPenaltyHandler : PenaltyHandler {
     override val name: String = "Respawn"
 
+    /**
+     * 记录自定义了重生点的玩家
+     */
     val pendingRespawnLocations = mutableMapOf<UUID, Location>()
 
     override fun penalty(context: Map<String, Any?>, config: ConfigurationSection) {
@@ -78,9 +82,9 @@ object RespawnPenaltyHandler : PenaltyHandler {
 
         // 是否开启自动重生
         if (data.auto) {
-            HecioDeath.bukkitScheduler.runTaskLater(HecioDeath.plugin, Runnable {
+            submit(delay = 1L) {
                 player.spigot().respawn()
-            }, 1L)
+            }
         }
     }
 
