@@ -2,6 +2,7 @@ options:
   bind-matcher:
     all: ["example::*"]
 
+
 inventory-penalty-example:
   type: "inventory"
   executor:
@@ -12,10 +13,12 @@ inventory-penalty-example:
       - "filter::amount::percentage::50%"
       - "return"
       - "slot::germplugin::*"
-      - "match::material:c(STONE)"
+      - "filter::material:c(STONE)"
       - "return"
-    target:
-      mode: fancy
+    drop-executor:
+      name: vanilla
+
+
 
 
 level-penalty-example:

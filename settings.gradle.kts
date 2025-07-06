@@ -12,3 +12,5 @@ include("project:module-bukkit")
 include("project:module-matcher")
 include("project:module-penalty")
 include("project:module-javascript")
+
+include("project:module-harbinger")

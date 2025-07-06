@@ -1,0 +1,6 @@
+example: |-
+  if (@{random 3 to 5} >= 50) {
+    
+  } else {
+  
+  }

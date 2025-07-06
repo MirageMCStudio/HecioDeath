@@ -1,5 +1,7 @@
 package me.anhecio.hecioplugin.death.module.penalty.handler.inventory.evaluator
 
+import me.anhecio.hecioplugin.death.module.penalty.handler.inventory.evaluator.nodes.ReturnNode
+
 /**
  * HecioDeath
  * me.anhecio.hecioplugin.death.module.penalty.handler.inventory.evaluator
@@ -8,7 +10,7 @@ package me.anhecio.hecioplugin.death.module.penalty.handler.inventory.evaluator
  * @since 2025/6/4 21:11
  */
 object InventoryDslEngine {
-    private val rootNode = AbstractDslNode()
+    val rootNode = AbstractDslNode()
 
     fun register(path: String, handler: DslNode) {
         val parts = path.split("::")
@@ -24,15 +26,25 @@ object InventoryDslEngine {
     fun eval(context: InventoryContext, lines: List<String>) {
         for (line in lines) {
             val args = line.split("::").filter { it.isNotBlank() }
+            if (rootNode.getChild(args[0]) is ReturnNode){
+                break
+            }
             rootNode.handle(context, args)
         }
     }
+
 }
 
 interface DslNode {
     fun register(childName: String, handler: DslNode)
     fun handle(context: InventoryContext, args: List<String>)
     fun getChild(name: String): DslNode?
+    fun formatNumber(line : String) : Number{
+        if (line.endsWith("%")){
+            return line.substring(0,line.length - 1).toDouble() / 100;
+        }
+        return line.toDouble();
+    }
 }
 
 open class AbstractDslNode : DslNode {
@@ -42,11 +54,15 @@ open class AbstractDslNode : DslNode {
         children[childName] = handler
     }
 
-    override fun getChild(name: String): DslNode? = children[name]
-
-    override fun handle(context: InventoryContext, args: List<String>) {
-        if (args.isEmpty()) return
-        val child = getChild(args[0]) ?: return
-        child.handle(context, args.drop(1))
+    override fun getChild(name: String): DslNode? {
+        return children[name]
     }
+
+    override fun handle(context: InventoryContext, args: List<String>){
+        if (args.isEmpty()) return;
+        val child = getChild(args[0]) ?: return;
+        val drop = args.drop(1)
+        child.handle(context, drop)
+    }
+
 }
