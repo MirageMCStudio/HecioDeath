@@ -1,6 +1,9 @@
 package me.anhecio.hecioplugin.death.module.penalty.handler.inventory.evaluator
 
+import me.anhecio.hecioplugin.death.common.compat.data.CompatSlot
+import me.anhecio.hecioplugin.death.module.penalty.handler.inventory.evaluator.nodes.MergeNode
 import me.anhecio.hecioplugin.death.module.penalty.handler.inventory.evaluator.nodes.ReturnNode
+import org.bukkit.inventory.ItemStack
 
 /**
  * HecioDeath
@@ -27,7 +30,7 @@ object InventoryDslEngine {
         for (line in lines) {
             val args = line.split("::").filter { it.isNotBlank() }
             if (rootNode.getChild(args[0]) is ReturnNode){
-                break
+                break;
             }
             rootNode.handle(context, args)
         }

@@ -11,6 +11,5 @@ import taboolib.library.configuration.ConfigurationSection
  */
 data class InventoryData(
     val executor : ConfigurationSection,
-    val target: Target? = null,
     val filter : List<String>? = executor.getStringList("filter")
 );

@@ -8,16 +8,13 @@ inventory-penalty-example:
   executor:
     filter:
       - "slot::vanilla::0..7"
-      - "return"
-      - "slot::*::*"
-      - "filter::amount::percentage::50%"
-      - "return"
-      - "slot::germplugin::*"
-      - "filter::material:c(STONE)"
-      - "return"
+      - "union"
+      - "slot::vanilla::9..17"
+      - "filter::amount::percentage::80%"
     drop-executor:
       name: vanilla
-
+      args:
+        example: 1.0
 
 
 
